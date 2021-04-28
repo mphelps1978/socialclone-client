@@ -14,7 +14,6 @@ const Home = () => {
     Axios
     .get('https://us-central1-socialmediaclone-f5653.cloudfunctions.net/api/blasts')
     .then((res) => {
-      console.log(res)
       setBlasts(res.data)
     })
     .catch(err => {
@@ -23,7 +22,7 @@ const Home = () => {
   },[])
 
   let recentBlastsMarkup = blasts? (
-    blasts.map((blast) => <Blast blast={blast}/>)
+    blasts.map((blast) => <Blast key={blast.blastId} blast={blast}/>)
   ) : <p>Loading...</p>
 
   return (

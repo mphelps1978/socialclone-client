@@ -1,5 +1,7 @@
 import React from 'react'
-import Link from 'react-router-dom/Link'
+import {Link} from 'react-router-dom'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 // MUI Imports
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -26,13 +28,14 @@ const styles = {
 
 const Blast = (props) => {
   const { classes, blast: {body, createdAt, userImage, userName, blastId, likeCount, commentCount} } = props
+  dayjs.extend(relativeTime)
   return (
     <>
-    <Card className={classes.card}>
+    <Card className={classes.card} key={blastId}>
       <CardMedia image={userImage} title="Profile image" alt="Profile Image" className={classes.image}/>
       <CardContent className={classes.content}>
         <Typography variant="h5" component={Link} to={`/users/${userName}`} color='primary'>{userName}</Typography>
-        <Typography variant="body2" color="textSecondary">{createdAt}</Typography>
+        <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
         <Typography variant="body1">{body}</Typography>
       </CardContent>
 
